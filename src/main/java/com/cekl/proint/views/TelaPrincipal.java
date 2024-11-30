@@ -4,11 +4,20 @@
  */
 package com.cekl.proint.views;
 
+import com.cekl.proint.controllers.BuscarTicketsPorCPF;
+import com.cekl.proint.controllers.TeatroEstatisticas;
+import com.cekl.proint.controllers.Utils;
 import com.cekl.proint.models.Area;
 import com.cekl.proint.models.Piece;
+import com.cekl.proint.models.Seats;
 import com.cekl.proint.models.Selection;
 import java.awt.GridLayout;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  *
@@ -21,6 +30,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
      */
     HashMap<String, Piece> pieces = new HashMap<>();
     Selection preselected = new Selection();
+
     public TelaPrincipal() {
         pieces.put("Hamlet", new Piece("Hamlet"));
         pieces.put("Romeo e Julieta", new Piece("Romeu e Julieta"));
@@ -28,8 +38,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
     }
-    
-        
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -43,7 +52,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jFormattedTextField1 = new javax.swing.JFormattedTextField();
+        cpfField = new javax.swing.JFormattedTextField();
         jLabel5 = new javax.swing.JLabel();
         ComboTurns = new javax.swing.JComboBox<>();
         ComboPiece = new javax.swing.JComboBox<>();
@@ -80,12 +89,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jLabel4.setText("CPF");
 
         try {
-            jFormattedTextField1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
+            cpfField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
-        jFormattedTextField1.setToolTipText("");
-        jFormattedTextField1.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        cpfField.setToolTipText("");
+        cpfField.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
 
         jLabel5.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jLabel5.setText("Peça");
@@ -156,7 +165,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
                                     .addComponent(jLabel4))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(FrameTelaCompraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(cpfField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(ComboPiece, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(ComboTurns, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(FrameTelaCompraLayout.createSequentialGroup()
@@ -175,7 +184,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(FrameTelaCompraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cpfField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(FrameTelaCompraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(ComboPiece, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -222,8 +231,18 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
 
         ButtonPrint.setText("Imprimir ingresso");
+        ButtonPrint.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonPrintActionPerformed(evt);
+            }
+        });
 
         ButtonStats.setText("Estatística de vendas");
+        ButtonStats.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonStatsActionPerformed(evt);
+            }
+        });
 
         jButton4.setText("Sair");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
@@ -272,6 +291,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private void ButtonBuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonBuyActionPerformed
         FrameTelaCompra.setLocationRelativeTo(this);
         FrameTelaCompra.setVisible(true);
+        FrameTelaCompra.revalidate();
+        FrameTelaCompra.repaint();
         this.setVisible(false);
     }//GEN-LAST:event_ButtonBuyActionPerformed
 
@@ -280,12 +301,16 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jToggleButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton2ActionPerformed
+        preselected.setCpf(cpfField.getText());
+        System.out.println(preselected.getCpf());
+        Utils.adicionarTicketAoCSV(preselected);
+        Assentos.getContentPane().removeAll();
         FrameTelaCompra.dispose();
         this.setVisible(true);
     }//GEN-LAST:event_jToggleButton2ActionPerformed
 
     private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
-        Area e = preselected.getSessao().getSeats().getAreas().get(preselected.getArea());
+        Area e = Seats.getAreas().get(preselected.getArea());
         GridLayout assentosLayout = new GridLayout(10, 10);
         ButtonExit = new javax.swing.JButton();
         Assentos.setLayout(assentosLayout);
@@ -297,8 +322,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
         Assentos.add(ButtonExit);
         for (int i = 0; i < e.getTotalSeats(); i++) {
-            Assentos.add(new SeatButton("botao"+i, Integer.toString(i), e.isSeatOccupied(i), preselected, Assentos));
+            Assentos.add(new SeatButton("botao" + i, Integer.toString(i), e.isSeatOccupied(i), preselected, Assentos));
         }
+        Assentos.setLocationRelativeTo(this);
         Assentos.setVisible(true);
     }//GEN-LAST:event_jToggleButton1ActionPerformed
 
@@ -308,15 +334,21 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_ComboAreaActionPerformed
 
     private void ComboPieceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboPieceActionPerformed
-        preselected.setPeca(pieces.get(ComboPiece.getSelectedItem().toString()));
+        preselected.setPeca(ComboPiece.getSelectedItem().toString());
         System.out.println(preselected.getPeca());
     }//GEN-LAST:event_ComboPieceActionPerformed
 
     private void ComboTurnsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboTurnsActionPerformed
-        preselected.setSessao(preselected.getPeca().getTurns().get(ComboTurns.getSelectedItem().toString()));
+        preselected.setSessao(ComboTurns.getSelectedItem().toString());
         System.out.println(preselected.getSessao());
     }//GEN-LAST:event_ComboTurnsActionPerformed
-    
+
+    private void ButtonStatsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonStatsActionPerformed
+TeatroEstatisticas.main();    }//GEN-LAST:event_ButtonStatsActionPerformed
+
+    private void ButtonPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonPrintActionPerformed
+BuscarTicketsPorCPF.main();    }//GEN-LAST:event_ButtonPrintActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -344,6 +376,21 @@ public class TelaPrincipal extends javax.swing.JFrame {
         }
         //</editor-fold>
 
+        //Create th ebasic csv file if needed
+        //base on relative path
+        Path pathToCsv = Paths.get("data", "Tickets.csv");
+        List<String> header = List.of("cpf,peca,sessao,area,poltrona,preco,dataCompra");
+
+        if(!Files.exists(pathToCsv)){
+        try {
+            // Write the lines to the CSV file
+            Files.write(pathToCsv, header);
+            
+            System.out.println("CSV file created successfully!");
+
+        } catch (IOException e) {
+            System.err.println("Error while creating the CSV file: " + e.getMessage());
+        }}
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
@@ -362,8 +409,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> ComboPiece;
     private javax.swing.JComboBox<String> ComboTurns;
     private javax.swing.JFrame FrameTelaCompra;
+    private javax.swing.JFormattedTextField cpfField;
     private javax.swing.JButton jButton4;
-    private javax.swing.JFormattedTextField jFormattedTextField1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

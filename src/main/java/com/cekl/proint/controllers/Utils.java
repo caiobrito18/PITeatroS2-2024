@@ -1,182 +1,56 @@
 package com.cekl.proint.controllers;
+
 import com.cekl.proint.models.Area;
 import com.cekl.proint.models.Client;
 import com.cekl.proint.models.Piece;
 import com.cekl.proint.models.Seats;
 import com.cekl.proint.models.Selection;
 import com.cekl.proint.models.Ticket;
-import com.cekl.proint.models.Turn;
-import com.cekl.proint.views.SeatButton;
-import java.util.HashMap;
-import java.util.List;
-import javax.swing.JFrame;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class Utils {
-  public static void printAreas() {
-    String[] areas = { "Plateia A", "Plateia B", "Frisa1", "Frisa2", "Frisa3", "Frisa4", "Frisa5", "Frisa6",
-        "Camarote1", "Camarote2", "Camarote3", "Camarote4", "Camarote5", "Balcão Nobre" };
-    for (int i = 0; i < areas.length; i++) {
-      System.out.println((i + 1) + ". " + areas[i]);
+
+    public static void adicionarTicketAoCSV(Selection selection) {
+        // catalogo das areas
+        String[] areas = {"Plateia A", "Plateia B", "Frisa1", "Frisa2", "Frisa3", "Frisa4", "Frisa5", "Frisa6",
+            "Camarote1", "Camarote2", "Camarote3", "Camarote4", "Camarote5", "Balcão Nobre"};
+
+        //csv path
+        Path csvFile = Paths.get("data", "Tickets.csv");
+        // 1. Criar um objeto Ticket a partir do Selection
+        Ticket ticket = new Ticket(
+                selection.getCpf(),
+                selection.getPeca(),
+                selection.getSessao(),
+                areas[selection.getArea()],
+                selection.getPoltrona(),
+                selection.getAreaPreco() // Aqui, assumimos que a área tem o método getPreco()
+        );
+
+        // 2. Obter a data atual para adicionar ao arquivo CSV
+        String dataCompra = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
+
+        // 3. Formatar os dados do ticket para a linha do CSV
+        String linhaCSV = ticket.getCpf() + ","
+                + ticket.getPeca() + ","
+                + ticket.getSessao() + ","
+                + ticket.getArea() + ","
+                + ticket.getPoltrona() + ","
+                + ticket.getPreco() + ","
+                + dataCompra;
+
+        // 4. Adicionar a linha ao arquivo CSV
+        try (FileWriter writer = new FileWriter(csvFile.toFile(), true)) {
+            writer.append(linhaCSV);
+            writer.append("\n");
+            System.out.println("Ticket adicionado com sucesso!");
+        } catch (IOException e) {
+            System.err.println("Erro ao adicionar o ticket ao CSV: " + e.getMessage());
+        }
     }
-  }
-
-  public static String buyTicket(String cpf, String piece, HashMap<String, Piece> pieces, String turn, Integer area,
-      HashMap<String, Client> clients, Seats theater, Integer seat) {
-    if (cpf == null || cpf.isEmpty()) {
-      System.out.println("");
-      return "Erro cpf vazio";
-    }
-
-    if (piece == null) {
-      return "erro campo peça vazio";
-    }
-
-    if (turn == null) {
-      return "erro campo turno vazio";
-    }
-    area -= 1;
-    try {
-      if (seat < 1 || seat > theater.getAreas().get(area).getTotalSeats()) {
-        throw new NumberFormatException();
-      }
-    } catch (NumberFormatException ex) {
-      return "número da cadeira inválido";
-    }
-
-    if (!clients.containsKey(cpf)) {
-      clients.put(cpf, new Client(cpf));
-    }
-    Client currentClient = clients.get(cpf);
-      Piece selectedPiece = pieces.get(piece);
-      Turn selectedTurn = selectedPiece.getTurns().get(turn);
-    Area selectedArea = theater.getAreas().get((area));
-
-    if (selectedArea.isSeatOccupied(seat - 1)) {
-      System.out.println("poltrona já se encontra ocupada");
-      return "erro, a poltrona se encontra ocupada, tente novamente com outro número de poltrona";
-    } else {
-      Ticket ticket = new Ticket(cpf.toString(), piece.toString(), turn, area.toString(), seat,
-          selectedArea.getPreco());
-      currentClient.addTicket(ticket);
-      selectedTurn.addTicket(ticket);
-      selectedArea.buySeats(seat - 1);
-      return "Ingresso comprado com sucesso";
-    }
-  }
-
-  public static String printTicket(String cpf, HashMap<String, Client> clients) {
-    if (!clients.containsKey(cpf)) {
-      return "Erro, cliente não encontrado";
-    }
-
-      Client client = clients.get(cpf);
-    List<Ticket> tickets = client.getTickets();
-
-    if (tickets.isEmpty()) {
-      return "Nenhum ticket atribuido a esse cpf";
-    }
-
-    StringBuilder recibo = new StringBuilder("Recibo de tickets:\n\n");
-    tickets.forEach(Ticket -> recibo
-        .append("poltrona:" + Ticket.getPoltrona() + "\n")
-        .append("area:" + Ticket.getArea() + "\n")
-        .append("peça:" + Ticket.getPeca() + "\n")
-        .append("Sessão:" + Ticket.getSessao() + "\n")
-        .append("\n"));
-    recibo.append("\nTotal: R$ ").append(String.format("%.2f", tickets.stream().mapToDouble(Ticket::getPreco).sum()));
-
-    return recibo.toString();
-  }
-//
-//  public static String statistics(HashMap<String, Piece> pieces, Seats teatro) {
-//    int maxOccupation = pieces.get("1").getTotalTicketsSold();
-//    String biggestOccupation = "";
-//    String biggestOccupationID = "1";
-//    for (Integer i = 1; i <= 3; i++) {
-//      if (pieces.get(i.toString()).getTotalTicketsSold() > maxOccupation) {
-//        biggestOccupation = pieces.get(i.toString()).getName();
-//        biggestOccupationID = i.toString();
-//      }
-//    }
-//
-//    double maxSale = pieces.get("1").getTotalRevenue();
-//    String biggestSale = "";
-//    String biggestSaleID = "1";
-//    for (Integer i = 1; i <= 3; i++) {
-//      if (pieces.get(i.toString()).getTotalRevenue() > maxSale) {
-//        biggestSale = pieces.get(i.toString()).getName();
-//        biggestSaleID = i.toString();
-//      }
-//    }
-//
-//    int minOccupation = pieces.get("1").getTotalTicketsSold();
-//    String smallestOccupation = "";
-//    String smallestOccupationID = "1";
-//    for (Integer i = 1; i <= 3; i++) {
-//      if (pieces.get(i.toString()).getTotalTicketsSold() < minOccupation) {
-//        smallestOccupation = pieces.get(i.toString()).getName();
-//        smallestOccupationID = i.toString();
-//      }
-//    }
-//
-//    double minSale = pieces.get("1").getTotalRevenue();
-//    String smallestSale = "";
-//    String smallestSaleID = "1";
-//    for (Integer i = 1; i <= 3; i++) {
-//      if (pieces.get(i.toString()).getTotalRevenue() < minSale) {
-//        smallestSale = pieces.get(i.toString()).getName();
-//        smallestSaleID = i.toString();
-//      }
-//    }
-//
-//    StringBuilder stats = new StringBuilder("Estatísticas de Vendas:\n\n");
-//    stats.append("Total de Ingressos Vendidos: ").append(teatro.getTotalTicketsSold()).append("\n");
-//    stats.append("Receita Total: R$ ").append(String.format("%.2f", teatro.getTotalRevenue())).append("\n\n");
-//
-//    pieces.values().forEach(peca -> {
-//      double average = peca.getTotalTicketsSold() / peca.getTotalRevenue();
-//      stats.append("Peça: ").append(peca.getName()).append("\n");
-//      stats.append("Ingressos Vendidos: ").append(peca.getTotalTicketsSold()).append("\n");
-//      stats.append("Lucro médio: ").append(average).append("\n");
-//      stats.append("Receita: R$ ").append(String.format("%.2f", peca.getTotalRevenue())).append("\n\n");
-//    });
-//    System.out.println(biggestOccupationID + " " + biggestSaleID + " " + smallestOccupationID + " " + smallestSaleID);
-//    stats.append("Peça mais vendida: ")
-//        .append(pieces.get(biggestOccupationID).getName())
-//        .append("\n");
-//    stats
-//        .append("Peça com maior receita: ")
-//        .append(pieces.get(biggestSaleID).getName())
-//        .append("\n");
-//
-//    stats.append("Peça menos vendida: ")
-//        .append(pieces.get(smallestOccupationID).getName())
-//        .append("\n");
-//
-//    stats
-//        .append("Peça com menor receita: ")
-//        .append(pieces.get(smallestSaleID).getName())
-//        .append("\n");
-//    return stats.toString();
-//  }
-
-  public static void ghostBuy(HashMap<String, Client> clients, Seats theater, HashMap<String, Piece> pieces) {
-    Integer num2 = random(1, 3);
-    Integer num3 = random(1, 3);
-    Integer num4 = random(1, 3);
-    Integer num5 = random(1, 14);
-      Area selectedArea = theater.getAreas().get((num5 - 1));
-    Integer num6 = random(1, selectedArea.getTotalSeats());
-    System.out.println(num2 + " " + num3 + " " + num4 + " " + num5 + " " + num6);
-    buyTicket(num2.toString(), num3.toString(), pieces, num4.toString(), num5, clients, theater, num6);
-  }
-
-  static Integer random(int min, int max) {
-    // Minimum value of range
-    // Maximum value of range
-    // Print the min and max
-    Integer random_int = (int) Math.floor(Math.random() * (max - min + 1) + min);
-    // Printing the generated random numbers
-    return random_int;
-  }
 }

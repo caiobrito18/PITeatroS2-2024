@@ -10,21 +10,26 @@ package com.cekl.proint.models;
  */
 public class Selection {
   private String cpf;
-  private Piece peca;
-  private Turn sessao;
+  private String peca;
+  private String sessao;
   private int area;
   private int poltrona;
 
   public Selection(){
   }
-  public Selection(String cpf, Piece peca, Turn turn, int area, int poltrona) {
+  public Selection(String cpf, String peca, String turn, int area, int poltrona) {
     this.cpf = cpf;
     this.peca = peca;
     this.sessao = turn;
     this.area = area;
     this.poltrona = poltrona;
   }
-
+/**
+     * @return the cpf
+     */
+    public double getAreaPreco() {
+        return Seats.getAreas().get(area).getPreco();
+    }
     /**
      * @return the cpf
      */
@@ -42,28 +47,28 @@ public class Selection {
     /**
      * @return the peca
      */
-    public Piece getPeca() {
+    public String getPeca() {
         return peca;
     }
 
     /**
      * @param peca the peca to set
      */
-    public void setPeca(Piece peca) {
+    public void setPeca(String peca) {
         this.peca = peca;
     }
 
     /**
      * @return the sessao
      */
-    public Turn getSessao() {
+    public String getSessao() {
         return sessao;
     }
 
     /**
      * @param sessao the sessao to set
      */
-    public void setSessao(Turn sessao) {
+    public void setSessao(String sessao) {
         this.sessao = sessao;
     }
 

@@ -3,7 +3,7 @@ package com.cekl.proint.models;
 import java.util.ArrayList;
 
 public class Seats {
-    private final ArrayList<Area> areas;
+    public static ArrayList<Area> areas;
 
     public Seats() {
         areas = new ArrayList<>();
@@ -23,8 +23,7 @@ public class Seats {
         areas.add(new Area(10, 250.00));// Balcão Nobre
     }
 
-    public ArrayList<Area> getAreas() {
+    public static ArrayList<Area> getAreas() {
         return areas;
    }
-
 }
