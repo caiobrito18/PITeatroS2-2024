@@ -18,7 +18,6 @@ com/cekl/proint/models/Turn.class
 com/cekl/proint/views/TelaPrincipal$6.class
 com/cekl/proint/views/SeatButton.class
 com/cekl/proint/controllers/Utils.class
-com/cekl/proint/models/Venda.class
 com/cekl/proint/views/TelaPrincipal$7.class
 com/cekl/proint/views/TelaPrincipal$2.class
 com/cekl/proint/models/Selection.class

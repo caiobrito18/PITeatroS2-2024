@@ -1,7 +1,7 @@
 package com.cekl.proint.models;
 
 import java.util.ArrayList;
-
+//classe auxiliar para representar as áreas de dentro do teatro
 public class Seats {
     public static ArrayList<Area> areas;
 

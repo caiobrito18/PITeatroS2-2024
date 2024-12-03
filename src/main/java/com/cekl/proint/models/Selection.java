@@ -7,6 +7,7 @@ package com.cekl.proint.models;
 /**
  *
  * @author caio
+ * Classe auxiliar para armazenar os dados da tela de compra para renderização
  */
 public class Selection {
   private String cpf;

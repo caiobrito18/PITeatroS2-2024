@@ -7,13 +7,9 @@ package com.cekl.proint.views;
 import com.cekl.proint.models.Selection;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Event;
 import java.awt.Graphics;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.SwingUtilities;
 
 /**
  *

@@ -106,9 +106,12 @@ public class TeatroEstatisticas {
                 
                 - Lucro médio por peça: R$ %.2f
                 """,
-                pecaMaisIngressos, pecaMenosIngressos,
-                sessaoMaiorOcupacao, sessaoMenorOcupacao,
-                pecaSessaoMaisLucrativa, pecaSessaoMenosLucrativa,
+                pecaMaisIngressos,
+                pecaMenosIngressos,
+                sessaoMaiorOcupacao,
+                sessaoMenorOcupacao,
+                pecaSessaoMaisLucrativa,
+                pecaSessaoMenosLucrativa,
                 lucroMedioPorPeca);
     }
 

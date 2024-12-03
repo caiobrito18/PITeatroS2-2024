@@ -7,10 +7,9 @@ public class Ticket {
   private final String area;
   private final int poltrona;
   private final double preco;
-
+ 
+  //classe auxiliar para representar os ingressos
   public Ticket(String cpf, String peca, String turno, String area, int poltrona, double preco) {
-    String[] pecas = { "Hamlet", "Romeu e Juleita", "Otelo" };
-    String[] turnos = { "manhã", "Tarde", "Noite" };
     this.cpf = cpf;
     this.peca = peca;
     this.sessao = turno;
@@ -19,28 +18,46 @@ public class Ticket {
     this.preco = preco;
   }
 
-  public String getCpf() {
-    return cpf;
-  }
+    /**
+     * @return the cpf
+     */
+    public String getCpf() {
+        return cpf;
+    }
 
-  public String getPeca() {
-    return peca;
-  }
+    /**
+     * @return the peca
+     */
+    public String getPeca() {
+        return peca;
+    }
 
-  public String getSessao() {
-    return sessao;
-  }
+    /**
+     * @return the sessao
+     */
+    public String getSessao() {
+        return sessao;
+    }
 
-  public String getArea() {
-    return area;
-  }
+    /**
+     * @return the area
+     */
+    public String getArea() {
+        return area;
+    }
 
-  public int getPoltrona() {
-    return poltrona;
-  }
+    /**
+     * @return the poltrona
+     */
+    public int getPoltrona() {
+        return poltrona;
+    }
 
-  public double getPreco() {
-    return preco;
-  }
+    /**
+     * @return the preco
+     */
+    public double getPreco() {
+        return preco;
+    }
 
 }

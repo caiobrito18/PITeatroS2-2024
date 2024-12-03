@@ -59,14 +59,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         ComboArea = new javax.swing.JComboBox<>();
         jLabel7 = new javax.swing.JLabel();
-        jToggleButton1 = new javax.swing.JToggleButton();
-        jToggleButton2 = new javax.swing.JToggleButton();
+        jButtonAssentos = new javax.swing.JToggleButton();
+        jButtonCompra = new javax.swing.JToggleButton();
         Assentos = new javax.swing.JFrame();
         jLabel1 = new javax.swing.JLabel();
         ButtonBuy = new javax.swing.JButton();
         ButtonPrint = new javax.swing.JButton();
         ButtonStats = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        jButtonSair = new javax.swing.JButton();
 
         FrameTelaCompra.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         FrameTelaCompra.setTitle("Compra");
@@ -129,17 +129,17 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jLabel7.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jLabel7.setText("Área");
 
-        jToggleButton1.setText("Escolher assento");
-        jToggleButton1.addActionListener(new java.awt.event.ActionListener() {
+        jButtonAssentos.setText("Escolher assento");
+        jButtonAssentos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButton1ActionPerformed(evt);
+                jButtonAssentosActionPerformed(evt);
             }
         });
 
-        jToggleButton2.setText("Finalizar Compra");
-        jToggleButton2.addActionListener(new java.awt.event.ActionListener() {
+        jButtonCompra.setText("Finalizar Compra");
+        jButtonCompra.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButton2ActionPerformed(evt);
+                jButtonCompraActionPerformed(evt);
             }
         });
 
@@ -151,7 +151,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(FrameTelaCompraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(FrameTelaCompraLayout.createSequentialGroup()
-                        .addComponent(jToggleButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButtonCompra, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addContainerGap())
                     .addGroup(FrameTelaCompraLayout.createSequentialGroup()
                         .addGroup(FrameTelaCompraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -171,7 +171,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
                                     .addGroup(FrameTelaCompraLayout.createSequentialGroup()
                                         .addComponent(ComboArea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 75, Short.MAX_VALUE)
-                                        .addComponent(jToggleButton1)))))
+                                        .addComponent(jButtonAssentos)))))
                         .addGap(35, 35, 35))))
         );
         FrameTelaCompraLayout.setVerticalGroup(
@@ -197,9 +197,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 .addGroup(FrameTelaCompraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(ComboArea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7)
-                    .addComponent(jToggleButton1))
+                    .addComponent(jButtonAssentos))
                 .addGap(18, 18, 18)
-                .addComponent(jToggleButton2)
+                .addComponent(jButtonCompra)
                 .addContainerGap(31, Short.MAX_VALUE))
         );
 
@@ -244,10 +244,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
 
-        jButton4.setText("Sair");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        jButtonSair.setText("Sair");
+        jButtonSair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                jButtonSairActionPerformed(evt);
             }
         });
 
@@ -266,7 +266,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
                             .addComponent(ButtonStats, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(ButtonPrint, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(ButtonBuy, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jButtonSair, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addContainerGap())))
         );
         layout.setVerticalGroup(
@@ -281,13 +281,13 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 .addGap(18, 18, Short.MAX_VALUE)
                 .addComponent(ButtonStats)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 139, Short.MAX_VALUE)
-                .addComponent(jButton4)
+                .addComponent(jButtonSair)
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+//Cria a tela de compra do Ingresso
     private void ButtonBuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonBuyActionPerformed
         FrameTelaCompra.setLocationRelativeTo(this);
         FrameTelaCompra.setVisible(true);
@@ -295,21 +295,21 @@ public class TelaPrincipal extends javax.swing.JFrame {
         FrameTelaCompra.repaint();
         this.setVisible(false);
     }//GEN-LAST:event_ButtonBuyActionPerformed
-
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+//fecha o programa
+    private void jButtonSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSairActionPerformed
         System.exit(0);
-    }//GEN-LAST:event_jButton4ActionPerformed
-
-    private void jToggleButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton2ActionPerformed
+    }//GEN-LAST:event_jButtonSairActionPerformed
+//adiciona o cpf à preseleção e finaliza a compra
+    private void jButtonCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCompraActionPerformed
         preselected.setCpf(cpfField.getText());
         System.out.println(preselected.getCpf());
         Utils.adicionarTicketAoCSV(preselected);
         Assentos.getContentPane().removeAll();
         FrameTelaCompra.dispose();
         this.setVisible(true);
-    }//GEN-LAST:event_jToggleButton2ActionPerformed
-
-    private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
+    }//GEN-LAST:event_jButtonCompraActionPerformed
+//cria a tela de seleção dos assentos baseada na área escolhida
+    private void jButtonAssentosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAssentosActionPerformed
         Area e = Seats.getAreas().get(preselected.getArea());
         GridLayout assentosLayout = new GridLayout(10, 10);
         ButtonExit = new javax.swing.JButton();
@@ -326,18 +326,18 @@ public class TelaPrincipal extends javax.swing.JFrame {
         }
         Assentos.setLocationRelativeTo(this);
         Assentos.setVisible(true);
-    }//GEN-LAST:event_jToggleButton1ActionPerformed
-
+    }//GEN-LAST:event_jButtonAssentosActionPerformed
+//adiciona a área à preseleção
     private void ComboAreaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboAreaActionPerformed
         preselected.setArea(ComboArea.getSelectedIndex());
         System.out.println(preselected.getArea());
     }//GEN-LAST:event_ComboAreaActionPerformed
-
+//adiciona a peça à preseleção
     private void ComboPieceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboPieceActionPerformed
         preselected.setPeca(ComboPiece.getSelectedItem().toString());
         System.out.println(preselected.getPeca());
     }//GEN-LAST:event_ComboPieceActionPerformed
-
+//adiciona o turno à preseleção
     private void ComboTurnsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboTurnsActionPerformed
         preselected.setSessao(ComboTurns.getSelectedItem().toString());
         System.out.println(preselected.getSessao());
@@ -376,14 +376,14 @@ BuscarTicketsPorCPF.main();    }//GEN-LAST:event_ButtonPrintActionPerformed
         }
         //</editor-fold>
 
-        //Create th ebasic csv file if needed
-        //base on relative path
+        //Cria o CSV de base caso ele não exista
+        //baseado no cmainho relativo da pasta para compatibilidade entre sistemas
         Path pathToCsv = Paths.get("data", "Tickets.csv");
         List<String> header = List.of("cpf,peca,sessao,area,poltrona,preco,dataCompra");
 
         if(!Files.exists(pathToCsv)){
         try {
-            // Write the lines to the CSV file
+            // Escree o cabeçalho do CSV base
             Files.write(pathToCsv, header);
             
             System.out.println("CSV file created successfully!");
@@ -410,7 +410,9 @@ BuscarTicketsPorCPF.main();    }//GEN-LAST:event_ButtonPrintActionPerformed
     private javax.swing.JComboBox<String> ComboTurns;
     private javax.swing.JFrame FrameTelaCompra;
     private javax.swing.JFormattedTextField cpfField;
-    private javax.swing.JButton jButton4;
+    private javax.swing.JToggleButton jButtonAssentos;
+    private javax.swing.JToggleButton jButtonCompra;
+    private javax.swing.JButton jButtonSair;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -418,7 +420,5 @@ BuscarTicketsPorCPF.main();    }//GEN-LAST:event_ButtonPrintActionPerformed
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JToggleButton jToggleButton1;
-    private javax.swing.JToggleButton jToggleButton2;
     // End of variables declaration//GEN-END:variables
 }

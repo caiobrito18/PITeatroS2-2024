@@ -1,9 +1,5 @@
 package com.cekl.proint.controllers;
 
-import com.cekl.proint.models.Area;
-import com.cekl.proint.models.Client;
-import com.cekl.proint.models.Piece;
-import com.cekl.proint.models.Seats;
 import com.cekl.proint.models.Selection;
 import com.cekl.proint.models.Ticket;
 import java.io.FileWriter;
@@ -29,7 +25,7 @@ public class Utils {
                 selection.getSessao(),
                 areas[selection.getArea()],
                 selection.getPoltrona(),
-                selection.getAreaPreco() // Aqui, assumimos que a área tem o método getPreco()
+                selection.getAreaPreco()
         );
 
         // 2. Obter a data atual para adicionar ao arquivo CSV
