@@ -11,6 +11,7 @@ import com.cekl.proint.models.Area;
 import com.cekl.proint.models.Piece;
 import com.cekl.proint.models.Seats;
 import com.cekl.proint.models.Selection;
+import com.cekl.proint.models.User;
 import java.awt.GridLayout;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -18,6 +19,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -62,11 +64,26 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jButtonAssentos = new javax.swing.JToggleButton();
         jButtonCompra = new javax.swing.JToggleButton();
         Assentos = new javax.swing.JFrame();
+        FrameCadastro = new javax.swing.JFrame();
+        fieldCPFCad = new javax.swing.JFormattedTextField();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        ButtonNewCadastro = new javax.swing.JToggleButton();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        fieldNomeCad = new javax.swing.JTextField();
+        fieldEndCad = new javax.swing.JTextField();
+        jLabel14 = new javax.swing.JLabel();
+        fieldTelCad = new javax.swing.JFormattedTextField();
+        fieldNascCad = new javax.swing.JFormattedTextField();
         jLabel1 = new javax.swing.JLabel();
         ButtonBuy = new javax.swing.JButton();
         ButtonPrint = new javax.swing.JButton();
         ButtonStats = new javax.swing.JButton();
         jButtonSair = new javax.swing.JButton();
+        Cadastro = new javax.swing.JButton();
 
         FrameTelaCompra.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         FrameTelaCompra.setTitle("Compra");
@@ -218,10 +235,121 @@ public class TelaPrincipal extends javax.swing.JFrame {
             .addGap(0, 448, Short.MAX_VALUE)
         );
 
+        FrameCadastro.setSize(new java.awt.Dimension(410, 320));
+
+        try {
+            fieldCPFCad.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        fieldCPFCad.setToolTipText("");
+        fieldCPFCad.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+
+        jLabel8.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        jLabel8.setText("CPF");
+
+        jLabel9.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        jLabel9.setText("endereço");
+
+        jLabel10.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        jLabel10.setText("Nascimento");
+
+        jLabel11.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
+        jLabel11.setText("Cadastro fidelidade");
+
+        ButtonNewCadastro.setText("Finalizar Cadastro");
+        ButtonNewCadastro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonNewCadastroActionPerformed(evt);
+            }
+        });
+
+        jLabel12.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        jLabel12.setText("Insira as suas infoamações para o cadastro no sistema ");
+
+        jLabel13.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        jLabel13.setText("Nome");
+
+        fieldNomeCad.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+
+        fieldEndCad.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+
+        jLabel14.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        jLabel14.setText("Telefone");
+
+        try {
+            fieldTelCad.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##) #####-####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        fieldTelCad.setToolTipText("");
+        fieldTelCad.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+
+        fieldNascCad.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getDateInstance(java.text.DateFormat.SHORT))));
+        fieldNascCad.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+
+        javax.swing.GroupLayout FrameCadastroLayout = new javax.swing.GroupLayout(FrameCadastro.getContentPane());
+        FrameCadastro.getContentPane().setLayout(FrameCadastroLayout);
+        FrameCadastroLayout.setHorizontalGroup(
+            FrameCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, FrameCadastroLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(FrameCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel11)
+                    .addComponent(jLabel9)
+                    .addGroup(FrameCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(ButtonNewCadastro, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(FrameCadastroLayout.createSequentialGroup()
+                            .addGroup(FrameCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel10)
+                                .addComponent(jLabel14)
+                                .addComponent(jLabel13)
+                                .addComponent(jLabel8))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(FrameCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(fieldEndCad, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(fieldTelCad, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 117, Short.MAX_VALUE)
+                                .addComponent(fieldNomeCad, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(fieldCPFCad, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(fieldNascCad))))))
+        );
+        FrameCadastroLayout.setVerticalGroup(
+            FrameCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(FrameCadastroLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel11)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel12)
+                .addGap(18, 18, 18)
+                .addGroup(FrameCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel13)
+                    .addComponent(fieldNomeCad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(FrameCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel14)
+                    .addComponent(fieldTelCad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(FrameCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(fieldCPFCad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(FrameCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9)
+                    .addComponent(fieldEndCad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
+                .addGroup(FrameCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel10)
+                    .addComponent(fieldNascCad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(ButtonNewCadastro)
+                .addGap(22, 22, 22))
+        );
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocation(new java.awt.Point(0, 0));
 
-        jLabel1.setText("Bem vindo ao teatro CEKL");
+        jLabel1.setText("Bem vindo ao teatro ABC");
 
         ButtonBuy.setText("Comprar Ingresso");
         ButtonBuy.addActionListener(new java.awt.event.ActionListener() {
@@ -251,36 +379,50 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
 
+        Cadastro.setText("Cadastro");
+        Cadastro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CadastroActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(86, 86, 86))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(ButtonStats, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(ButtonPrint, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(ButtonBuy, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButtonSair, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addContainerGap())))
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(Cadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(118, 118, 118)
+                .addComponent(jLabel1)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(14, 14, 14)
                 .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(Cadastro)
                 .addGap(18, 18, 18)
                 .addComponent(ButtonBuy)
-                .addGap(18, 18, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                 .addComponent(ButtonPrint)
-                .addGap(18, 18, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(ButtonStats)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 139, Short.MAX_VALUE)
+                .addGap(99, 99, 99)
                 .addComponent(jButtonSair)
                 .addContainerGap())
         );
@@ -301,12 +443,16 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonSairActionPerformed
 //adiciona o cpf à preseleção e finaliza a compra
     private void jButtonCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCompraActionPerformed
+        if(Utils.isCPFValid(cpfField.getText())){
         preselected.setCpf(cpfField.getText());
         System.out.println(preselected.getCpf());
         Utils.adicionarTicketAoCSV(preselected);
         Assentos.getContentPane().removeAll();
         FrameTelaCompra.dispose();
         this.setVisible(true);
+        } else{
+            JOptionPane.showMessageDialog(null, "CPF inválido.", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_jButtonCompraActionPerformed
 //cria a tela de seleção dos assentos baseada na área escolhida
     private void jButtonAssentosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAssentosActionPerformed
@@ -349,6 +495,35 @@ TeatroEstatisticas.main();    }//GEN-LAST:event_ButtonStatsActionPerformed
     private void ButtonPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonPrintActionPerformed
 BuscarTicketsPorCPF.main();    }//GEN-LAST:event_ButtonPrintActionPerformed
 
+    private void CadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CadastroActionPerformed
+        FrameCadastro.setLocationRelativeTo(this);
+        FrameCadastro.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_CadastroActionPerformed
+
+    private void ButtonNewCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonNewCadastroActionPerformed
+        if(Utils.isCPFValid(fieldCPFCad.getText())&&
+                !fieldNomeCad.getText().isEmpty()&&
+                !fieldTelCad.getText().replaceAll("\\D", "").isEmpty()&&
+                !fieldEndCad.getText().isEmpty()&&
+                !fieldNascCad.getText().isEmpty()){
+        User user = new User(        
+                fieldCPFCad.getText(),
+                fieldNomeCad.getText(),
+                fieldTelCad.getText(),
+                fieldEndCad.getText(),
+                fieldNascCad.getText()
+        );
+        Utils.adicionarUsuarioAoCSV(user);
+        FrameCadastro.setVisible(false);
+        this.setVisible(true);}
+        else{
+        JOptionPane.showMessageDialog(null, "Dados inválidos", "Erro", JOptionPane.ERROR_MESSAGE);
+
+        }
+        
+      }//GEN-LAST:event_ButtonNewCadastroActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -378,19 +553,33 @@ BuscarTicketsPorCPF.main();    }//GEN-LAST:event_ButtonPrintActionPerformed
 
         //Cria o CSV de base caso ele não exista
         //baseado no cmainho relativo da pasta para compatibilidade entre sistemas
-        Path pathToCsv = Paths.get("data", "Tickets.csv");
-        List<String> header = List.of("cpf,peca,sessao,area,poltrona,preco,dataCompra");
+        Path pathToCsvTicket = Paths.get("data", "Tickets.csv");
+        List<String> headerTicket = List.of("cpf,peca,sessao,area,poltrona,preco,dataCompra");
+        Path pathToCsvUser = Paths.get("data", "User.csv");
+        List<String> headerUser = List.of("CPF,Nome,Telefone,Data de Nascimento,Endereço,Data de Cadastro");
 
-        if(!Files.exists(pathToCsv)){
-        try {
-            // Escree o cabeçalho do CSV base
-            Files.write(pathToCsv, header);
-            
-            System.out.println("CSV file created successfully!");
+        if (!Files.exists(pathToCsvTicket)) {
+            try {
+                // Escree o cabeçalho do CSV base
+                Files.write(pathToCsvTicket, headerTicket);
 
-        } catch (IOException e) {
-            System.err.println("Error while creating the CSV file: " + e.getMessage());
-        }}
+                System.out.println("CSV file created successfully!");
+
+            } catch (IOException e) {
+                System.err.println("Error while creating the CSV file: " + e.getMessage());
+            }
+        }
+        if (!Files.exists(pathToCsvUser)) {
+            try {
+                // Escree o cabeçalho do CSV base
+                Files.write(pathToCsvUser, headerUser);
+
+                System.out.println("CSV file created successfully!");
+
+            } catch (IOException e) {
+                System.err.println("Error while creating the CSV file: " + e.getMessage());
+            }
+        }
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
@@ -403,22 +592,37 @@ BuscarTicketsPorCPF.main();    }//GEN-LAST:event_ButtonPrintActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JFrame Assentos;
     private javax.swing.JButton ButtonBuy;
+    private javax.swing.JToggleButton ButtonNewCadastro;
     private javax.swing.JButton ButtonPrint;
     private javax.swing.JButton ButtonStats;
+    private javax.swing.JButton Cadastro;
     private javax.swing.JComboBox<String> ComboArea;
     private javax.swing.JComboBox<String> ComboPiece;
     private javax.swing.JComboBox<String> ComboTurns;
+    private javax.swing.JFrame FrameCadastro;
     private javax.swing.JFrame FrameTelaCompra;
     private javax.swing.JFormattedTextField cpfField;
+    private javax.swing.JFormattedTextField fieldCPFCad;
+    private javax.swing.JTextField fieldEndCad;
+    private javax.swing.JFormattedTextField fieldNascCad;
+    private javax.swing.JTextField fieldNomeCad;
+    private javax.swing.JFormattedTextField fieldTelCad;
     private javax.swing.JToggleButton jButtonAssentos;
     private javax.swing.JToggleButton jButtonCompra;
     private javax.swing.JButton jButtonSair;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     // End of variables declaration//GEN-END:variables
 }
