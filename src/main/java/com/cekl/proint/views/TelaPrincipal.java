@@ -507,6 +507,7 @@ BuscarTicketsPorCPF.main();    }//GEN-LAST:event_ButtonPrintActionPerformed
                 !fieldTelCad.getText().replaceAll("\\D", "").isEmpty()&&
                 !fieldEndCad.getText().isEmpty()&&
                 !fieldNascCad.getText().isEmpty()){
+            
         User user = new User(        
                 fieldCPFCad.getText(),
                 fieldNomeCad.getText(),

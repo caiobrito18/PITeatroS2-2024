@@ -115,18 +115,23 @@ public class BuscarTicketsPorCPF {
         String user = users.get(0);
         // Constrói uma string contendo a lista de tickets encontrados.
         StringBuilder builder = new StringBuilder();
+        
         builder.append(descreverUser(user)).append("\n\n");
+        
         for (String ticket : tickets) {
             builder.append(descreverTicket(ticket)).append("\n"); // Adiciona cada ticket formatado.
         }
 
         // Configura um JTextArea para exibir os tickets de forma legível.
         JTextArea textArea = new JTextArea(builder.toString());
+        
         textArea.setEditable(false); // Impede edição do texto.
+        
         textArea.setFont(new Font("Monospaced", Font.PLAIN, 12)); // Define uma fonte monoespaçada.
 
         // Envolve o JTextArea em um JScrollPane para permitir rolagem, caso necessário.
         JScrollPane scrollPane = new JScrollPane(textArea);
+        
         scrollPane.setPreferredSize(new Dimension(600, 400)); // Define o tamanho da janela de exibição.
 
         // Exibe os tickets encontrados em uma mensagem informativa.
